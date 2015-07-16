@@ -423,7 +423,7 @@ namespace Thinktecture.IdentityServer.Core.Validation
                 LogError("User authentication failed");
                 RaiseFailedResourceOwnerAuthenticationEvent(userName, signInMessage);
 
-                return Invalid(Constants.TokenErrors.InvalidGrant);
+                return Invalid(authnResult.ErrorMessage);
             }
 
             _validatedRequest.UserName = userName;
