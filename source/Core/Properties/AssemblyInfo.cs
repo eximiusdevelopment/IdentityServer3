@@ -21,11 +21,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Thinktecture IdentityServer3")]
+[assembly: AssemblyTitle("IdentityServer3")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Thinktecture IdentityServer3")]
+[assembly: AssemblyProduct("IdentityServer3")]
 [assembly: AssemblyCopyright("Copyright ©  2015 Dominick Baier, Brock Allen")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -39,6 +39,6 @@ using System.Runtime.InteropServices;
 [assembly: Guid("8fd81f8c-9a47-479e-9a83-bdf66f883d78")]
 //[assembly: InternalsVisibleTo("Thinktecture.IdentityServer.Core.Tests")]
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.1.0")]
 

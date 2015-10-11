@@ -16,6 +16,8 @@
 
 using Autofac;
 using Autofac.Integration.WebApi;
+using Autofac.Util;
+using IdentityServer3.Core.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,9 +26,8 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Dispatcher;
 using System.Web.Http.ExceptionHandling;
-using Thinktecture.IdentityServer.Core.Logging;
 
-namespace Thinktecture.IdentityServer.Core.Configuration.Hosting
+namespace IdentityServer3.Core.Configuration.Hosting
 {
     internal static class WebApiConfig
     {
@@ -53,15 +54,20 @@ namespace Thinktecture.IdentityServer.Core.Configuration.Hosting
 
                 var diag = config.EnableSystemDiagnosticsTracing();
                 diag.IsVerbose = options.LoggingOptions.WebApiDiagnosticsIsVerbose;
-                diag.TraceSource = liblog;                
+                diag.TraceSource = liblog;
             }
 
-            if (options.LoggingOptions.EnableHttpLogging)
-            {
-                config.MessageHandlers.Add(new RequestResponseLogger());
-            }
+            ConfigureRoutes(options, config);
 
             return config;
+        }
+
+        private static void ConfigureRoutes(IdentityServerOptions options, HttpConfiguration config)
+        {
+            if (options.EnableWelcomePage)
+            {
+                config.Routes.MapHttpRoute(Constants.RouteNames.Welcome, Constants.RoutePaths.Welcome, new { controller = "Welcome", action = "Get" });
+            }
         }
 
         private class HttpControllerTypeResolver : IHttpControllerTypeResolver
@@ -71,10 +77,11 @@ namespace Thinktecture.IdentityServer.Core.Configuration.Hosting
                 var httpControllerType = typeof (IHttpController);
                 return typeof (WebApiConfig)
                     .Assembly
-                    .GetTypes()
+                    .GetLoadableTypes()
                     .Where(t => t.IsClass && !t.IsAbstract && httpControllerType.IsAssignableFrom(t))
                     .ToList();
             }
         }
+
     }
 }
